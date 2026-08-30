@@ -99,14 +99,14 @@ function OrderPage() {
       <section className="section-y">
         <div className="container-page max-w-3xl">
           {/* Steps */}
-          <ol className="flex flex-wrap gap-2">
+          <ol className="scroll-row -mx-5 px-5 sm:mx-0 sm:flex-wrap sm:px-0">
             {steps.map((s, i) => (
               <li key={s}>
                 <button
                   type="button"
                   onClick={() => i < step && setStep(i)}
                   className={cn(
-                    "label-caps min-h-[44px] rounded-full px-4 transition-all duration-300 ease-out",
+                    "label-caps min-h-[44px] rounded-full px-4 whitespace-nowrap transition-all duration-300 ease-out",
                     i === step
                       ? "bg-primary text-primary-foreground"
                       : i < step
@@ -119,6 +119,7 @@ function OrderPage() {
               </li>
             ))}
           </ol>
+
 
           {/* Step 1: cart */}
           {step === 0 && (

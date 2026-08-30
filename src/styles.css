@@ -182,6 +182,36 @@
   text-transform: uppercase;
 }
 
+/* Horizontal scroll rows on mobile without a visible scrollbar. */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Row that scrolls sideways on small screens and wraps normally above sm. */
+@utility scroll-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > * {
+    flex: none;
+    scroll-snap-align: start;
+  }
+}
+
+
 @keyframes foi-fade-up {
   from {
     opacity: 0;

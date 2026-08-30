@@ -40,8 +40,8 @@ export function MenuCard({ item, index = 0 }: { item: MenuItem; index?: number }
           </ul>
         )}
 
-        <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <span className="font-display text-base font-bold text-primary">
+        <div className="mt-auto flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-display text-base font-bold whitespace-nowrap text-primary">
             {currency(item.price)}
           </span>
           <button
@@ -50,12 +50,13 @@ export function MenuCard({ item, index = 0 }: { item: MenuItem; index?: number }
               add({ id: item.id, name: item.name, price: item.price });
               toast.success(`${item.name} added to your order`);
             }}
-            className="label-caps flex min-h-[44px] items-center gap-1.5 rounded-full bg-primary px-4 text-primary-foreground transition-all duration-200 ease-out hover:bg-primary-deep hover:scale-[1.02] active:scale-[0.97]"
+            className="label-caps flex min-h-[44px] w-full items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-primary-foreground transition-all duration-200 ease-out hover:bg-primary-deep hover:scale-[1.02] active:scale-[0.97] sm:w-auto"
           >
             <Plus className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
             Add
           </button>
         </div>
+
       </div>
     </article>
   );

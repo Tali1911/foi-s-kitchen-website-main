@@ -85,7 +85,7 @@ function MenuPage() {
                 />
               </div>
 
-              <ul className="flex flex-wrap gap-2">
+              <ul className="scroll-row -mx-5 px-5 sm:mx-0 sm:flex-wrap sm:px-0">
                 {diets.map((d) => (
                   <li key={d}>
                     <button
@@ -93,7 +93,7 @@ function MenuPage() {
                       onClick={() => setDiet(diet === d ? null : d)}
                       aria-pressed={diet === d}
                       className={cn(
-                        "min-h-[44px] rounded-full border px-4 text-sm font-semibold transition-colors duration-200 ease-out",
+                        "min-h-[44px] rounded-full border px-4 text-sm font-semibold whitespace-nowrap transition-colors duration-200 ease-out",
                         diet === d
                           ? "border-sage bg-sage text-sage-foreground"
                           : "border-input text-muted-foreground hover:border-sage hover:text-sage",
@@ -104,6 +104,7 @@ function MenuPage() {
                   </li>
                 ))}
               </ul>
+
             </div>
           </div>
 

@@ -4,6 +4,7 @@ import { ChevronDown, Menu, ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/foi-logo.jpeg.asset.json";
 
 const mainLinks = [
   { to: "/", label: "Home" },
@@ -44,9 +45,11 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-foreground/10 bg-foreground text-background">
       <div className="container-page grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:flex lg:justify-between">
         <Link to="/" className="flex min-w-0 items-center gap-2">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary font-display text-sm font-bold text-primary-foreground">
-            F
-          </span>
+          <img
+            src={logoAsset.url}
+            alt={`${site.name} logo`}
+            className="h-10 w-10 shrink-0 rounded-full object-cover"
+          />
           <span className="truncate font-display text-lg font-bold">{site.name}</span>
         </Link>
 
