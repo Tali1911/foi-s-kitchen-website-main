@@ -16,6 +16,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ServicesCorporateRouteImport } from './routes/services.corporate'
 import { Route as ServicesMealPrepRouteImport } from './routes/services.meal-prep'
 import { Route as ServicesWeddingsRouteImport } from './routes/services.weddings'
@@ -55,20 +56,25 @@ const QuoteRoute = QuoteRouteImport.update({
   path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesCorporateRoute = ServicesCorporateRouteImport.update({
-  id: '/services/corporate',
-  path: '/services/corporate',
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesCorporateRoute = ServicesCorporateRouteImport.update({
+  id: '/corporate',
+  path: '/corporate',
+  getParentRoute: () => ServicesRoute,
 } as any)
 const ServicesMealPrepRoute = ServicesMealPrepRouteImport.update({
-  id: '/services/meal-prep',
-  path: '/services/meal-prep',
-  getParentRoute: () => rootRouteImport,
+  id: '/meal-prep',
+  path: '/meal-prep',
+  getParentRoute: () => ServicesRoute,
 } as any)
 const ServicesWeddingsRoute = ServicesWeddingsRouteImport.update({
-  id: '/services/weddings',
-  path: '/services/weddings',
-  getParentRoute: () => rootRouteImport,
+  id: '/weddings',
+  path: '/weddings',
+  getParentRoute: () => ServicesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
+  '/services': typeof ServicesRouteWithChildren
   '/services/corporate': typeof ServicesCorporateRoute
   '/services/meal-prep': typeof ServicesMealPrepRoute
   '/services/weddings': typeof ServicesWeddingsRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
+  '/services': typeof ServicesRouteWithChildren
   '/services/corporate': typeof ServicesCorporateRoute
   '/services/meal-prep': typeof ServicesMealPrepRoute
   '/services/weddings': typeof ServicesWeddingsRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
+  '/services': typeof ServicesRouteWithChildren
   '/services/corporate': typeof ServicesCorporateRoute
   '/services/meal-prep': typeof ServicesMealPrepRoute
   '/services/weddings': typeof ServicesWeddingsRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/menu'
     | '/order'
     | '/quote'
+    | '/services'
     | '/services/corporate'
     | '/services/meal-prep'
     | '/services/weddings'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/menu'
     | '/order'
     | '/quote'
+    | '/services'
     | '/services/corporate'
     | '/services/meal-prep'
     | '/services/weddings'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/menu'
     | '/order'
     | '/quote'
+    | '/services'
     | '/services/corporate'
     | '/services/meal-prep'
     | '/services/weddings'
@@ -155,9 +167,7 @@ export interface RootRouteChildren {
   MenuRoute: typeof MenuRoute
   OrderRoute: typeof OrderRoute
   QuoteRoute: typeof QuoteRoute
-  ServicesCorporateRoute: typeof ServicesCorporateRoute
-  ServicesMealPrepRoute: typeof ServicesMealPrepRoute
-  ServicesWeddingsRoute: typeof ServicesWeddingsRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -211,29 +221,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/corporate': {
       id: '/services/corporate'
-      path: '/services/corporate'
+      path: '/corporate'
       fullPath: '/services/corporate'
       preLoaderRoute: typeof ServicesCorporateRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ServicesRoute
     }
     '/services/meal-prep': {
       id: '/services/meal-prep'
-      path: '/services/meal-prep'
+      path: '/meal-prep'
       fullPath: '/services/meal-prep'
       preLoaderRoute: typeof ServicesMealPrepRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ServicesRoute
     }
     '/services/weddings': {
       id: '/services/weddings'
-      path: '/services/weddings'
+      path: '/weddings'
       fullPath: '/services/weddings'
       preLoaderRoute: typeof ServicesWeddingsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ServicesRoute
     }
   }
 }
+
+interface ServicesRouteChildren {
+  ServicesCorporateRoute: typeof ServicesCorporateRoute
+  ServicesMealPrepRoute: typeof ServicesMealPrepRoute
+  ServicesWeddingsRoute: typeof ServicesWeddingsRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesCorporateRoute: ServicesCorporateRoute,
+  ServicesMealPrepRoute: ServicesMealPrepRoute,
+  ServicesWeddingsRoute: ServicesWeddingsRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -243,9 +276,7 @@ const rootRouteChildren: RootRouteChildren = {
   MenuRoute: MenuRoute,
   OrderRoute: OrderRoute,
   QuoteRoute: QuoteRoute,
-  ServicesCorporateRoute: ServicesCorporateRoute,
-  ServicesMealPrepRoute: ServicesMealPrepRoute,
-  ServicesWeddingsRoute: ServicesWeddingsRoute,
+  ServicesRoute: ServicesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -13,20 +13,24 @@ Foi's Kitchen combines appetite-forward visual presentation with smooth digital 
 ## ✨ Key Features
 
 ### 1. Interactive Menu & Online Ordering
+
 - **Categorized Menu Catalog**: Filter items across Breakfast, Mains, Sides, Drinks, and Desserts.
 - **Search & Dietary Filters**: Quickly locate items with badges for vegetarian, gluten-free, and chef specials.
 - **Dynamic Cart & Checkout Flow**: Add items to cart, adjust quantities, input delivery/pickup details, and calculate subtotals in real-time.
 - **Flexible Payment & Order Channels**: Direct M-Pesa checkout flow alongside instant one-click WhatsApp order confirmation.
 
 ### 2. Tailored Catering & Services
+
 - **Corporate Catering**: Tiered corporate packages, sample menus, minimum order quantity (MOQ) guidelines, and downloadable menu resources.
 - **Weddings & Private Events**: Curated packages for bespoke celebrations, lead-time recommendations, and an inquiry system.
 - **Meal Prep Subscription Plans**: Clean plan cards featuring transparent pricing, dietary inclusions, and simple subscription ordering.
 
 ### 3. Quote Request System
+
 - Interactive multi-field quotation calculator capturing event type, guest count, venue date, budget expectations, and custom dietary requirements.
 
 ### 4. Customer Engagement & Social Proof
+
 - **Hero Carousel**: Highlight daily specials and signature dishes with high-resolution imagery.
 - **Gallery & Testimonials**: Filterable showcase of past events and authentic customer reviews.
 - **Persistent Accessibility**: Floating WhatsApp button and sticky mobile order bar for immediate customer inquiries.
@@ -37,14 +41,14 @@ Foi's Kitchen combines appetite-forward visual presentation with smooth digital 
 
 The user interface follows a warm, earthy, food-inspired palette crafted for clarity and appetite appeal:
 
-| Token / Color | Hex Code | Usage |
-| :--- | :--- | :--- |
-| **Warm Charcoal-Brown** | `#3B2A20` | Headings, primary text, dark backgrounds |
-| **Terracotta / Ochre Accent** | `#C97B3D` | Action buttons, active tabs, price highlights |
-| **Soft Cream** | `#F4EFE9` | Main page background, section alternation |
-| **Pure White** | `#FFFFFF` | Card containers, modals, crisp contrast elements |
-| **Muted Sage** | `#7C8B6B` | Healthy/meal-prep badges, secondary accents |
-| **WhatsApp Green** | `#25D366` | Instant messaging and WhatsApp direct actions |
+| Token / Color                 | Hex Code  | Usage                                            |
+| :---------------------------- | :-------- | :----------------------------------------------- |
+| **Warm Charcoal-Brown**       | `#3B2A20` | Headings, primary text, dark backgrounds         |
+| **Terracotta / Ochre Accent** | `#C97B3D` | Action buttons, active tabs, price highlights    |
+| **Soft Cream**                | `#F4EFE9` | Main page background, section alternation        |
+| **Pure White**                | `#FFFFFF` | Card containers, modals, crisp contrast elements |
+| **Muted Sage**                | `#7C8B6B` | Healthy/meal-prep badges, secondary accents      |
+| **WhatsApp Green**            | `#25D366` | Instant messaging and WhatsApp direct actions    |
 
 ---
 
@@ -114,17 +118,20 @@ Make sure you have **Node.js** (v18.0.0 or higher) and **npm** installed on your
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd foi-s-kitchen-website
    ```
 
 2. Install the dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start the local development server:
+
    ```bash
    npm run dev
    ```
@@ -138,13 +145,13 @@ Make sure you have **Node.js** (v18.0.0 or higher) and **npm** installed on your
 
 ## 📜 Available Scripts
 
-| Script | Command | Description |
-| :--- | :--- | :--- |
-| **`npm run dev`** | `vite dev` | Starts the local development server with hot-module reloading. |
-| **`npm run build`** | `vite build` | Compiles and bundles production-ready assets into the `dist/` directory. |
-| **`npm run preview`** | `vite preview` | Serves the production build locally to test behavior before deployment. |
-| **`npm run lint`** | `eslint .` | Runs ESLint to inspect and enforce code quality rules. |
-| **`npm run format`** | `prettier --write .` | Formats all source files according to Prettier configuration. |
+| Script                | Command              | Description                                                              |
+| :-------------------- | :------------------- | :----------------------------------------------------------------------- |
+| **`npm run dev`**     | `vite dev`           | Starts the local development server with hot-module reloading.           |
+| **`npm run build`**   | `vite build`         | Compiles and bundles production-ready assets into the `dist/` directory. |
+| **`npm run preview`** | `vite preview`       | Serves the production build locally to test behavior before deployment.  |
+| **`npm run lint`**    | `eslint .`           | Runs ESLint to inspect and enforce code quality rules.                   |
+| **`npm run format`**  | `prettier --write .` | Formats all source files according to Prettier configuration.            |
 
 ---
 

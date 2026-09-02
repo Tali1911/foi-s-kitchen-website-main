@@ -4,18 +4,13 @@ import { ChevronDown, Menu, ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/foi-logo.jpeg.asset.json";
+import logo from "@/assets/logo.png";
 
 const mainLinks = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
 ] as const;
 
-const serviceLinks = [
-  { to: "/services/corporate", label: "Corporate Catering" },
-  { to: "/services/weddings", label: "Weddings & Private Events" },
-  { to: "/services/meal-prep", label: "Meal Prep Plans" },
-] as const;
 
 const orderLinks = [
   { to: "/order", label: "Order Online" },
@@ -24,14 +19,12 @@ const orderLinks = [
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const { count, bump } = useCart();
   const [bumping, setBumping] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     setMobileOpen(false);
-    setServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -42,13 +35,13 @@ export function SiteHeader() {
   }, [bump]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-foreground/10 bg-foreground text-background">
+    <header className="sticky top-0 z-40 border-b border-border bg-card text-foreground">
       <div className="container-page grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:flex lg:justify-between">
         <Link to="/" className="flex min-w-0 items-center gap-2">
           <img
-            src={logoAsset.url}
+            src={logo}
             alt={`${site.name} logo`}
-            className="h-10 w-10 shrink-0 rounded-full object-cover"
+            className="h-9 w-auto shrink-0"
           />
           <span className="truncate font-display text-lg font-bold">{site.name}</span>
         </Link>
@@ -59,7 +52,7 @@ export function SiteHeader() {
             <NavItem key={l.to} to={l.to} label={l.label} />
           ))}
 
-          <Dropdown label="Services" links={serviceLinks} />
+          <NavItem to="/services" label="Services" />
 
           <NavItem to="/menu" label="Menu" />
 
@@ -104,29 +97,11 @@ export function SiteHeader() {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="animate-fade-up border-t border-background/15 bg-foreground lg:hidden">
+        <div className="animate-fade-up border-t border-border bg-card text-foreground lg:hidden">
           <nav className="container-page flex flex-col py-3" aria-label="Mobile">
             <MobileLink to="/" label="Home" />
             <MobileLink to="/about" label="About" />
-
-            <button
-              type="button"
-              onClick={() => setServicesOpen((o) => !o)}
-              aria-expanded={servicesOpen}
-              className="flex min-h-[48px] items-center justify-between font-display text-base font-semibold"
-            >
-              Services
-              <ChevronDown
-                className={cn("h-4 w-4 transition-transform duration-200 ease-out", servicesOpen && "rotate-180")}
-                strokeWidth={1.75}
-                aria-hidden="true"
-              />
-            </button>
-            {servicesOpen &&
-              serviceLinks.map((l) => (
-                <MobileLink key={l.to} to={l.to} label={l.label} indent />
-              ))}
-
+            <MobileLink to="/services" label="Services" />
             <MobileLink to="/menu" label="Menu" />
             <MobileLink to="/gallery" label="Gallery & Reviews" />
             <MobileLink to="/contact" label="Contact" />

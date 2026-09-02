@@ -17,7 +17,7 @@ export function MealOfTheDay() {
   const item = featured[new Date().getDay() % featured.length]!;
 
   return (
-    <section className="section-y">
+    <section className="section-y bg-blush">
       <div className="container-page">
         <div className="grid overflow-hidden rounded-3xl bg-foreground text-background md:grid-cols-2">
           <div className="aspect-[4/3] md:aspect-auto">
@@ -32,7 +32,9 @@ export function MealOfTheDay() {
           </div>
 
           <div className="flex flex-col justify-center gap-4 p-8 md:p-12">
-            <p className="label-caps text-primary">Meal of the day</p>
+            <p className="label-caps inline-block border-t border-gold pt-2 text-primary">
+              Meal of the day
+            </p>
             <h2 className="font-display text-3xl font-bold md:text-4xl">{item.name}</h2>
             <p className="max-w-md text-background/80">{item.description}</p>
             <p className="font-display text-3xl font-bold text-primary">{currency(item.price)}</p>

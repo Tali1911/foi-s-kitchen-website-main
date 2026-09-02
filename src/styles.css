@@ -40,6 +40,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-sage: var(--sage);
   --color-sage-foreground: var(--sage-foreground);
+  --color-blush: var(--blush);
+  --color-blush-foreground: var(--blush-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-foreground: var(--whatsapp-foreground);
   --color-destructive: var(--destructive);
@@ -69,31 +73,35 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.9543 0.0097 72.66); /* cream #F4EFE9 */
-  --cream: oklch(0.9543 0.0097 72.66);
-  --foreground: oklch(0.302 0.0308 51.66); /* charcoal-brown #3B2A20 */
+  --background: oklch(0.9764 0.0060 43.34); /* cream #FBF6F4 */
+  --cream: oklch(0.9764 0.0060 43.34);
+  --foreground: oklch(0.2038 0.0087 59.14); /* charcoal #1A1613 */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.302 0.0308 51.66);
+  --card-foreground: oklch(0.2038 0.0087 59.14);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.302 0.0308 51.66);
-  --primary: oklch(0.655 0.1239 56.64); /* ochre #C97B3D */
+  --popover-foreground: oklch(0.2038 0.0087 59.14);
+  --primary: oklch(0.4266 0.1436 14.73); /* wine-red #8C1F35 */
   --primary-foreground: oklch(1 0 0);
-  --primary-deep: oklch(0.565 0.1148 54.04);
-  --secondary: oklch(0.9047 0.0178 73.06);
-  --secondary-foreground: oklch(0.302 0.0308 51.66);
-  --muted: oklch(0.9047 0.0178 73.06);
-  --muted-foreground: oklch(0.4899 0.0364 52);
-  --accent: oklch(0.9047 0.0178 73.06);
-  --accent-foreground: oklch(0.302 0.0308 51.66);
-  --sage: oklch(0.6157 0.0498 128.23); /* #7C8B6B */
+  --primary-deep: oklch(0.3597 0.1200 14.21); /* #6E1729 */
+  --secondary: oklch(0.9317 0.0122 43.27); /* neutral #F0E6E2 */
+  --secondary-foreground: oklch(0.2038 0.0087 59.14);
+  --muted: oklch(0.9317 0.0122 43.27);
+  --muted-foreground: oklch(0.5475 0.0177 48.38); /* #7A6E68 */
+  --accent: oklch(0.9317 0.0122 43.27);
+  --accent-foreground: oklch(0.2038 0.0087 59.14);
+  --blush: oklch(0.8907 0.0460 359.23); /* #F6CFDA */
+  --blush-foreground: oklch(0.4266 0.1436 14.73);
+  --gold: oklch(0.6683 0.0964 72.66); /* #B98B4E */
+  --gold-foreground: oklch(0.2038 0.0087 59.14);
+  --sage: oklch(0.6157 0.0498 128.23); /* unchanged — dietary tags only */
   --sage-foreground: oklch(1 0 0);
-  --whatsapp: oklch(0.761 0.2015 149.74); /* #25D366 */
+  --whatsapp: oklch(0.761 0.2015 149.74); /* unchanged */
   --whatsapp-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9047 0.0178 73.06);
-  --input: oklch(0.8747 0.0178 73.06);
-  --ring: oklch(0.655 0.1239 56.64);
+  --border: oklch(0.8826 0.0176 44.79); /* #E3D5CF */
+  --input: oklch(0.8826 0.0176 44.79);
+  --ring: oklch(0.4266 0.1436 14.73);
   --chart-1: oklch(0.655 0.1239 56.64);
   --chart-2: oklch(0.6157 0.0498 128.23);
   --chart-3: oklch(0.4399 0.0564 54.4);

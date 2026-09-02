@@ -1,13 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { site, waLink } from "@/lib/site";
+import logo from "@/assets/logo.png";
 
 export function SiteFooter() {
   return (
     <footer className="mt-auto bg-foreground text-background">
       <div className="container-page grid gap-10 py-14 md:grid-cols-4">
         <div>
-          <p className="font-display text-xl font-bold">{site.name}</p>
+          <div className="flex items-center gap-2">
+            <img src={logo} alt={`${site.name} logo`} className="h-9 w-auto shrink-0" />
+            <p className="font-display text-xl font-bold">{site.name}</p>
+          </div>
           <p className="mt-3 max-w-xs text-sm opacity-80">{site.tagline}</p>
         </div>
 
