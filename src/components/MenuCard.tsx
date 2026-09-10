@@ -9,14 +9,16 @@ export function MenuCard({ item, index = 0 }: { item: MenuItem; index?: number }
 
   return (
     <article
-      className="animate-fade-up group flex flex-col overflow-hidden rounded-2xl bg-card shadow-card"
+      className="animate-fade-up group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card"
       style={{ animationDelay: `${Math.min(index, 8) * 60}ms` }}
     >
-      <div className="aspect-square overflow-hidden">
+      <div className="aspect-square overflow-hidden bg-secondary/60">
         <img
           src={item.image}
           alt={item.name}
           loading="lazy"
+          decoding="async"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
           width={1024}
           height={1024}
           className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]"

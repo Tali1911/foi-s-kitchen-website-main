@@ -17,9 +17,11 @@ import { Route as MenuRouteImport } from './routes/menu'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ServicesCorporateRouteImport } from './routes/services.corporate'
-import { Route as ServicesMealPrepRouteImport } from './routes/services.meal-prep'
-import { Route as ServicesWeddingsRouteImport } from './routes/services.weddings'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
+import { Route as AccountIndexRouteImport } from './routes/account.index'
+import { Route as AccountOrdersRouteImport } from './routes/account.orders'
+import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -61,20 +63,30 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesCorporateRoute = ServicesCorporateRouteImport.update({
-  id: '/corporate',
-  path: '/corporate',
-  getParentRoute: () => ServicesRoute,
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesMealPrepRoute = ServicesMealPrepRouteImport.update({
-  id: '/meal-prep',
-  path: '/meal-prep',
-  getParentRoute: () => ServicesRoute,
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesWeddingsRoute = ServicesWeddingsRouteImport.update({
-  id: '/weddings',
-  path: '/weddings',
-  getParentRoute: () => ServicesRoute,
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountOrdersRoute = AccountOrdersRouteImport.update({
+  id: '/account/orders',
+  path: '/account/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminOrdersRoute = AdminOrdersRouteImport.update({
+  id: '/admin/orders',
+  path: '/admin/orders',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -85,10 +97,12 @@ export interface FileRoutesByFullPath {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
-  '/services': typeof ServicesRouteWithChildren
-  '/services/corporate': typeof ServicesCorporateRoute
-  '/services/meal-prep': typeof ServicesMealPrepRoute
-  '/services/weddings': typeof ServicesWeddingsRoute
+  '/services': typeof ServicesRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/account/orders': typeof AccountOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/account/': typeof AccountIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,10 +112,12 @@ export interface FileRoutesByTo {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
-  '/services': typeof ServicesRouteWithChildren
-  '/services/corporate': typeof ServicesCorporateRoute
-  '/services/meal-prep': typeof ServicesMealPrepRoute
-  '/services/weddings': typeof ServicesWeddingsRoute
+  '/services': typeof ServicesRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/account/orders': typeof AccountOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/account': typeof AccountIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,10 +128,12 @@ export interface FileRoutesById {
   '/menu': typeof MenuRoute
   '/order': typeof OrderRoute
   '/quote': typeof QuoteRoute
-  '/services': typeof ServicesRouteWithChildren
-  '/services/corporate': typeof ServicesCorporateRoute
-  '/services/meal-prep': typeof ServicesMealPrepRoute
-  '/services/weddings': typeof ServicesWeddingsRoute
+  '/services': typeof ServicesRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/account/orders': typeof AccountOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/account/': typeof AccountIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -128,9 +146,11 @@ export interface FileRouteTypes {
     | '/order'
     | '/quote'
     | '/services'
-    | '/services/corporate'
-    | '/services/meal-prep'
-    | '/services/weddings'
+    | '/sign-in'
+    | '/sign-up'
+    | '/account/orders'
+    | '/admin/orders'
+    | '/account/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -141,9 +161,11 @@ export interface FileRouteTypes {
     | '/order'
     | '/quote'
     | '/services'
-    | '/services/corporate'
-    | '/services/meal-prep'
-    | '/services/weddings'
+    | '/sign-in'
+    | '/sign-up'
+    | '/account/orders'
+    | '/admin/orders'
+    | '/account'
   id:
     | '__root__'
     | '/'
@@ -154,9 +176,11 @@ export interface FileRouteTypes {
     | '/order'
     | '/quote'
     | '/services'
-    | '/services/corporate'
-    | '/services/meal-prep'
-    | '/services/weddings'
+    | '/sign-in'
+    | '/sign-up'
+    | '/account/orders'
+    | '/admin/orders'
+    | '/account/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -167,7 +191,12 @@ export interface RootRouteChildren {
   MenuRoute: typeof MenuRoute
   OrderRoute: typeof OrderRoute
   QuoteRoute: typeof QuoteRoute
-  ServicesRoute: typeof ServicesRouteWithChildren
+  ServicesRoute: typeof ServicesRoute
+  SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
+  AccountOrdersRoute: typeof AccountOrdersRoute
+  AdminOrdersRoute: typeof AdminOrdersRoute
+  AccountIndexRoute: typeof AccountIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -228,45 +257,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services/corporate': {
-      id: '/services/corporate'
-      path: '/corporate'
-      fullPath: '/services/corporate'
-      preLoaderRoute: typeof ServicesCorporateRouteImport
-      parentRoute: typeof ServicesRoute
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/services/meal-prep': {
-      id: '/services/meal-prep'
-      path: '/meal-prep'
-      fullPath: '/services/meal-prep'
-      preLoaderRoute: typeof ServicesMealPrepRouteImport
-      parentRoute: typeof ServicesRoute
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/services/weddings': {
-      id: '/services/weddings'
-      path: '/weddings'
-      fullPath: '/services/weddings'
-      preLoaderRoute: typeof ServicesWeddingsRouteImport
-      parentRoute: typeof ServicesRoute
+    '/account/': {
+      id: '/account/'
+      path: '/account'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AccountIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/orders': {
+      id: '/account/orders'
+      path: '/account/orders'
+      fullPath: '/account/orders'
+      preLoaderRoute: typeof AccountOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/orders': {
+      id: '/admin/orders'
+      path: '/admin/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ServicesRouteChildren {
-  ServicesCorporateRoute: typeof ServicesCorporateRoute
-  ServicesMealPrepRoute: typeof ServicesMealPrepRoute
-  ServicesWeddingsRoute: typeof ServicesWeddingsRoute
-}
-
-const ServicesRouteChildren: ServicesRouteChildren = {
-  ServicesCorporateRoute: ServicesCorporateRoute,
-  ServicesMealPrepRoute: ServicesMealPrepRoute,
-  ServicesWeddingsRoute: ServicesWeddingsRoute,
-}
-
-const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
-  ServicesRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -276,7 +303,12 @@ const rootRouteChildren: RootRouteChildren = {
   MenuRoute: MenuRoute,
   OrderRoute: OrderRoute,
   QuoteRoute: QuoteRoute,
-  ServicesRoute: ServicesRouteWithChildren,
+  ServicesRoute: ServicesRoute,
+  SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
+  AccountOrdersRoute: AccountOrdersRoute,
+  AdminOrdersRoute: AdminOrdersRoute,
+  AccountIndexRoute: AccountIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

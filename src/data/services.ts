@@ -8,6 +8,7 @@ export type Service = {
   description: string;
   image: string;
   to: string;
+  category: "corporate" | "weddings" | "meal-prep";
 };
 
 export const services: Service[] = [
@@ -16,20 +17,23 @@ export const services: Service[] = [
     name: "Corporate Catering",
     description: "Office lunches, boardroom teas and full event catering that arrive hot and on time.",
     image: corporate,
-    to: "/services/corporate",
+    to: "/services?category=corporate",
+    category: "corporate",
   },
   {
     id: "weddings",
     name: "Weddings & Private Events",
     description: "Menus built around your day — from intimate gatherings to 300-guest celebrations.",
     image: wedding,
-    to: "/services/weddings",
+    to: "/services?category=weddings",
+    category: "weddings",
   },
   {
     id: "meal-prep",
     name: "Meal Prep Plans",
     description: "Fresh, portioned meals delivered weekly to your doorstep. Pick your plan, we cook.",
     image: mealPrep,
-    to: "/services/meal-prep",
+    to: "/services?category=meal-prep",
+    category: "meal-prep",
   },
 ];

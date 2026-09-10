@@ -13,11 +13,11 @@ export function CategoryTabs<T extends string>({
   label: string;
 }) {
   return (
-    <div className="-mx-5 px-5 sm:mx-0 sm:px-0">
+    <div className="min-w-0 overflow-x-auto no-scrollbar">
       <div
         role="tablist"
         aria-label={label}
-        className="scroll-row rounded-full bg-secondary p-1.5 sm:flex-wrap"
+        className="inline-flex min-w-max items-center gap-1 rounded-full border border-border bg-secondary/70 p-1"
       >
         {options.map((option) => {
           const active = option === value;
@@ -32,7 +32,7 @@ export function CategoryTabs<T extends string>({
                 "label-caps min-h-[44px] rounded-full px-4 whitespace-nowrap transition-all duration-300 ease-out",
                 active
                   ? "bg-primary text-primary-foreground shadow-card"
-                  : "text-foreground/70 hover:text-primary",
+                  : "text-foreground/70 hover:bg-card hover:text-primary",
               )}
             >
               {option}

@@ -8,7 +8,7 @@
  * Foi's Kitchen design system.
  * Colours: charcoal-brown text, ochre accent, cream backgrounds, white cards,
  * sage for healthy tags, WhatsApp green for WhatsApp elements only.
- * Fonts: Poppins (headings/nav), Lato (body).
+ * Fonts: Poppins (headings/nav), Lato (body), Lora (compact editorial headings only).
  */
 
 @theme inline {
@@ -22,6 +22,7 @@
 
   --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "Lora", ui-serif, Georgia, serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -190,6 +191,26 @@
   text-transform: uppercase;
 }
 
+@utility font-serif-eyebrow {
+  color: var(--color-foreground);
+  font-family: var(--font-editorial);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+@utility font-serif-eyebrow-sub {
+  color: var(--color-muted-foreground);
+  font-family: var(--font-editorial);
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
 /* Horizontal scroll rows on mobile without a visible scrollbar. */
 @utility no-scrollbar {
   -ms-overflow-style: none;
@@ -233,6 +254,21 @@
 
 @utility animate-fade-up {
   animation: foi-fade-up 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes foi-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-swap-in {
+  animation: foi-swap-in 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @utility reveal {

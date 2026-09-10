@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronDown, Menu, ShoppingBag, X } from "lucide-react";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { ChevronDown, Menu, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { initials, useAuth, useProfile } from "@/lib/auth";
 import logo from "@/assets/logo.png";
+
 
 const mainLinks = [
   { to: "/", label: "Home" },
@@ -76,7 +79,10 @@ export function SiteHeader() {
               </span>
             )}
           </Link>
+
+          <AccountMenu />
         </nav>
+
 
         {/* Mobile trigger */}
         <button
@@ -106,11 +112,13 @@ export function SiteHeader() {
             <MobileLink to="/gallery" label="Gallery & Reviews" />
             <MobileLink to="/contact" label="Contact" />
             <MobileLink to="/quote" label="Request a Quotation" />
+            <MobileAccountLinks />
           </nav>
         </div>
       )}
     </header>
   );
+
 }
 
 function NavItem({ to, label }: { to: string; label: string }) {
@@ -203,5 +211,104 @@ function MobileLink({
     >
       {label}
     </Link>
+  );
+}
+
+function useSignOut() {
+  const navigate = useNavigate();
+  return async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/", replace: true });
+  };
+}
+
+function AccountMenu() {
+  const { user, loading } = useAuth();
+  const { profile } = useProfile(user?.id);
+  const [open, setOpen] = useState(false);
+  const signOut = useSignOut();
+
+  if (loading) return <span className="h-11 w-11" aria-hidden="true" />;
+
+  if (!user) {
+    return (
+      <Link
+        to="/sign-in"
+        aria-label="Sign in"
+        className="grid h-11 w-11 place-items-center rounded-full transition-colors duration-200 ease-out hover:text-primary"
+      >
+        <User className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+      </Link>
+    );
+  }
+
+  return (
+    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-label="Account menu"
+        className="grid h-11 w-11 place-items-center rounded-full border border-border font-display text-sm font-semibold transition-colors duration-200 ease-out hover:border-primary hover:text-primary"
+      >
+        {initials(profile?.full_name, user.email)}
+      </button>
+
+      {open && (
+        <div className="animate-fade-up absolute top-full right-0 w-52 rounded-xl border border-border bg-card p-2 text-card-foreground shadow-lift">
+          <Link to="/account" className="block rounded-lg px-3 py-3 text-sm transition-colors hover:bg-secondary hover:text-primary">
+            My Account
+          </Link>
+          <Link to="/account/orders" className="block rounded-lg px-3 py-3 text-sm transition-colors hover:bg-secondary hover:text-primary">
+            My Orders
+          </Link>
+          {profile?.is_admin && (
+            <Link to="/admin/orders" className="block rounded-lg px-3 py-3 text-sm transition-colors hover:bg-secondary hover:text-primary">
+              All Orders
+            </Link>
+          )}
+          <button
+            type="button"
+            onClick={signOut}
+            className="block w-full rounded-lg px-3 py-3 text-left text-sm transition-colors hover:bg-secondary hover:text-primary"
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileAccountLinks() {
+  const { user, loading } = useAuth();
+  const { profile } = useProfile(user?.id);
+  const signOut = useSignOut();
+
+  if (loading) return null;
+
+  if (!user) {
+    return (
+      <>
+        <span className="my-2 h-px bg-gold" aria-hidden="true" />
+        <MobileLink to="/sign-in" label="Sign in" />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className="my-2 h-px bg-gold" aria-hidden="true" />
+      <MobileLink to="/account" label="My Account" />
+      <MobileLink to="/account/orders" label="My Orders" />
+      {profile?.is_admin && <MobileLink to="/admin/orders" label="All Orders" />}
+      <button
+        type="button"
+        onClick={signOut}
+        className="flex min-h-[48px] items-center font-display text-base font-semibold transition-colors duration-200 ease-out hover:text-primary"
+      >
+        Sign Out
+      </button>
+    </>
   );
 }

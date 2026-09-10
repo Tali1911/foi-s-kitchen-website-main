@@ -11,7 +11,7 @@ export function PrimaryLink({
   children,
   className,
 }: {
-  to: "/order" | "/quote" | "/menu" | "/contact" | "/services/meal-prep";
+  to: "/order" | "/quote" | "/menu" | "/contact";
   children: ReactNode;
   className?: string;
 }) {
@@ -33,10 +33,7 @@ export function OutlineLink({
     | "/order"
     | "/about"
     | "/gallery"
-    | "/contact"
-    | "/services/corporate"
-    | "/services/weddings"
-    | "/services/meal-prep";
+    | "/contact";
   children: ReactNode;
   className?: string;
 }) {
