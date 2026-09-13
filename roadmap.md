@@ -1,8 +1,11 @@
-# Roadmap
+# Foi's Kitchen — CMS build roadmap
 
-- [x] Add compact Lora headings to Services and Menu only
-- [x] Consolidate service content into URL-driven tabs on /services
-- [x] Update homepage and footer service links to ?category= URLs
-- [x] Remove superseded service child routes and stale references
-- [x] Restyle Menu filters/cards and add cart summary bar
-- [x] Validate Services and Menu across desktop and mobile
+- [x] Part 1: media bucket + MediaPicker + /admin/media
+- [x] Part 2: catalog tables code (menu, services, tiers, plans, testimonials, gallery)
+- [x] Part 3: page_sections + global business info (+ SiteInfoProvider wired in __root)
+- [x] Part 4: seed script (scripts/seed-cms.ts) — uploads src/assets, fills every table
+- [x] Part 5: public pages read from the database
+- [x] Part 6: admin editor pages + /admin nav
+
+- [x] Schema applied + seed run (38 photos, 12 menu items, 3 services, 9 tiers,
+      3 plans, 4 reviews, 12 gallery items, 12 page sections)

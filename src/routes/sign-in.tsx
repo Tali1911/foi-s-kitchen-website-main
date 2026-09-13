@@ -1,16 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AuthForm } from "@/components/AuthForm";
+
+import { AuthPanel } from "@/components/AuthPanel";
+import { PageHeadingRow } from "@/components/PageHeadingRow";
 
 export const Route = createFileRoute("/sign-in")({
+  ssr: false,
   head: () => ({
     meta: [
-      { title: "Sign in — Foi's Kitchen Nairobi" },
-      { name: "description", content: "Sign in to your Foi's Kitchen account to save your details and track your orders." },
-      { property: "og:title", content: "Sign in — Foi's Kitchen" },
-      { property: "og:description", content: "Sign in to track your Foi's Kitchen orders." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { title: "Sign In — Foi's Kitchen Nairobi" },
+      {
+        name: "description",
+        content:
+          "Sign in to your Foi's Kitchen account to save your delivery details and track your orders.",
+      },
+      { property: "og:title", content: "Sign In — Foi's Kitchen" },
+      { property: "og:description", content: "Save your details and track your orders." },
     ],
   }),
-  component: () => <AuthForm mode="sign-in" />,
+  component: SignInPage,
 });
+
+function SignInPage() {
+  return (
+    <section className="container-page max-w-md pb-16 md:pb-24">
+      <PageHeadingRow title="Sign in" note="Save your details and track your orders." />
+      <AuthPanel mode="sign-in" />
+    </section>
+  );
+}

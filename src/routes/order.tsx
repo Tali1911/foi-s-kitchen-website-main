@@ -3,11 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Minus, Plus, Smartphone, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/PageHero";
+import { useAuth } from "@/lib/auth";
 import { useCart } from "@/lib/cart";
 import { currency, site, waLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/lib/auth";
 
 
 export const Route = createFileRoute("/order")({
@@ -35,10 +34,10 @@ const fieldClass =
 
 function OrderPage() {
   const { lines, total, setQty, remove, clear } = useCart();
-  const { user } = useAuth();
+  const { client, user, profile } = useAuth();
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
-  const [wasSignedIn, setWasSignedIn] = useState(false);
+  const [prefilled, setPrefilled] = useState(false);
   const [details, setDetails] = useState({
     name: "",
     phone: "",
@@ -48,32 +47,23 @@ function OrderPage() {
     notes: "",
   });
 
+  // Prefill from the signed-in customer's saved profile (still editable).
   useEffect(() => {
-    if (!user) return;
-    let active = true;
-    supabase
-      .from("profiles")
-      .select("full_name, phone, default_address, default_method")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (!active || !data) return;
-        setDetails((d) => ({
-          ...d,
-          name: d.name || data.full_name || "",
-          phone: d.phone || data.phone || "",
-          address: d.address || data.default_address || "",
-          method: data.default_method || d.method,
-        }));
-      });
-    return () => {
-      active = false;
-    };
-  }, [user]);
+    if (prefilled || !profile) return;
+    setDetails((d) => ({
+      ...d,
+      name: d.name || profile.full_name || "",
+      phone: d.phone || profile.phone || "",
+      method: profile.default_method || d.method,
+      address: d.address || profile.default_address || "",
+    }));
+    setPrefilled(true);
+  }, [profile, prefilled]);
 
   async function saveOrder() {
-    setWasSignedIn(Boolean(user));
-    const payload = {
+    setDone(true);
+    if (!client) return;
+    const { error } = await client.from("orders").insert({
       user_id: user?.id ?? null,
       guest_name: user ? null : details.name,
       guest_phone: user ? null : details.phone,
@@ -84,11 +74,14 @@ function OrderPage() {
       preferred_time: details.time || null,
       notes: details.notes || null,
       status: "Received",
-    };
-    const { error } = await supabase.from("orders").insert(payload);
-    if (error) toast.error("We couldn't save your order, but WhatsApp is still open.");
-    setDone(true);
+    });
+    if (error) {
+      console.error(error);
+      toast.error("We opened WhatsApp, but couldn't save the order for tracking.");
+    }
   }
+
+
 
 
   const orderText = [
@@ -117,8 +110,9 @@ function OrderPage() {
             We've opened WhatsApp with your order. Send the message and we'll confirm
             the total and delivery time right away.
           </p>
-          {wasSignedIn && (
-            <p className="mt-3 text-sm text-muted-foreground">
+
+          {user && (
+            <p className="mt-4 text-sm text-muted-foreground">
               Track this order anytime under{" "}
               <Link to="/account/orders" className="font-semibold text-primary hover:underline">
                 My Orders
@@ -391,7 +385,7 @@ function OrderPage() {
                 href={waLink(orderText)}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => void saveOrder()}
+                onClick={() => saveOrder()}
                 className="label-caps inline-flex min-h-[48px] items-center justify-center rounded-full bg-whatsapp px-6 text-whatsapp-foreground transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
               >
                 Complete via WhatsApp

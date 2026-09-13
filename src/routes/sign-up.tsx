@@ -1,16 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AuthForm } from "@/components/AuthForm";
+
+import { AuthPanel } from "@/components/AuthPanel";
+import { PageHeadingRow } from "@/components/PageHeadingRow";
 
 export const Route = createFileRoute("/sign-up")({
+  ssr: false,
   head: () => ({
     meta: [
-      { title: "Create account — Foi's Kitchen Nairobi" },
-      { name: "description", content: "Create a Foi's Kitchen account to save your delivery details and track your food orders." },
-      { property: "og:title", content: "Create account — Foi's Kitchen" },
-      { property: "og:description", content: "Save your details and track every Foi's Kitchen order." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { title: "Create an Account — Foi's Kitchen Nairobi" },
+      {
+        name: "description",
+        content:
+          "Create a Foi's Kitchen account to save your name, phone and delivery address and follow your orders.",
+      },
+      { property: "og:title", content: "Create an Account — Foi's Kitchen" },
+      { property: "og:description", content: "Faster checkout and order tracking." },
     ],
   }),
-  component: () => <AuthForm mode="sign-up" />,
+  component: SignUpPage,
 });
+
+function SignUpPage() {
+  return (
+    <section className="container-page max-w-md pb-16 md:pb-24">
+      <PageHeadingRow title="Create account" note="Faster checkout, and every order in one place." />
+      <AuthPanel mode="sign-up" />
+    </section>
+  );
+}
